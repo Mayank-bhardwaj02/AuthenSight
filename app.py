@@ -7,7 +7,6 @@ from facenet_pytorch import MTCNN, InceptionResnetV1
 from PIL import Image
 import albumentations as A
 from torchvision import transforms
-import time
 
 # Initialize MTCNN and ResNet
 mtcnn = MTCNN(image_size=160, margin=0, min_face_size=40)
@@ -122,7 +121,7 @@ ctx = webrtc_streamer(
 mode = st.radio("Select Mode", ["Enroll Face", "Unlock Face"])
 
 if st.button("Submit"):
-    if ctx.video_transformer and ctx.video_transformer.frame is not None:
+    if ctx.state.playing and ctx.video_transformer and ctx.video_transformer.frame is not None:
         frame = ctx.video_transformer.frame
         if mode == "Enroll Face":
             result = enroll_pipeline(frame)
@@ -131,8 +130,8 @@ if st.button("Submit"):
             result = authenticate(frame)
             st.write(result)
     else:
-        st.error("No webcam frame available. Ensure the webcam is running.")
+        st.error("Webcam not active or no frame available. Start the webcam and try again.")
 
 if st.button("Clear"):
     st.session_state.enrollment_embeddings = None
-    st.write("Enrollment data cleared.")
+    st.success("Enrollment data cleared.")
