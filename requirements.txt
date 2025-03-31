@@ -1,0 +1,8 @@
+streamlit
+opencv-python
+facenet-pytorch
+albumentations
+torch
+torchvision
+numpy
+Pillow
