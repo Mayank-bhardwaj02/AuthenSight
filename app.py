@@ -1,6 +1,6 @@
 import streamlit as st
 import time
-import cv2
+#import cv2
 import numpy as np
 import torch
 from facenet_pytorch import MTCNN, InceptionResnetV1
